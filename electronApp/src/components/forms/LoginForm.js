@@ -20,7 +20,7 @@ const LoginForm = () => (
                 <p style={{ fontSize: '.8em' }}>Would you like to stay signed in?</p>
                 <Checkbox value="uncontrolled" inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
             </div>
-            <NavLink to='/signup'>
+            <NavLink to='/dashboard'>
                 <button style={styles.button}>Login</button>
             </NavLink>
         </form>
