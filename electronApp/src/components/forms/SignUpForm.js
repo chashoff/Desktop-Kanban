@@ -22,7 +22,7 @@ const LoginForm = () => (
                 <p style={{ fontSize: '.8em' }}>Do you agree to the terms of service?</p>
                 <Checkbox value="uncontrolled" inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
             </div>
-            <NavLink to='/signup'>
+            <NavLink to='/dashboard'>
                 <button style={styles.button}>Create Account</button>
             </NavLink>
         </form>
