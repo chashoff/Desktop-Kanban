@@ -21,13 +21,21 @@ class App extends Component {
     
     render() {
         return(
-
             <MuiThemeProvider theme={theme}>
-                <Router>
-                    <Routes />
-                </Router>
+                <div style={styles.container}>
+                    <Router>
+                        <Routes />
+                    </Router>
+                </div>
             </MuiThemeProvider>
         )
     }
 }
 export default App
+
+const styles = {
+    container: {
+        backgroundColor: '#585858',
+        height: '100vh'
+    }
+}
