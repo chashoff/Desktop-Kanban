@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import LoginForm from '../components/forms/LoginForm';
+import React, { Component } from 'react'
+import SignUpForm from '../components/forms/SignUpForm'
 
-class Login extends Component {
+class SignUp extends Component {
     render() {
         return(
             <div style={styles.wrapper}>
-                <LoginForm />
+                <SignUpForm />
             </div>
         )
     }
 }
-
-export default Login
+export default SignUp
 const styles = {
     wrapper: {
         height: '100vh',
