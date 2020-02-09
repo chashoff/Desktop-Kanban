@@ -27,7 +27,6 @@ const styles = {
         display: 'flex',
         alignItems: 'Center',
         height: '45px',
-        backgroundcolor: 'lightgrey'
     },
     btnText: {
         backgroundcolor: 'lightgrey'
