@@ -1,21 +1,32 @@
-import React, { Component } from 'react'
-import TopNav from '../components/nav/TopNav'
-import SVGAddButton from '../images/SVGAddButton'
+import React, { useState, useRef } from 'react';
+import TopNav from '../components/nav/TopNav';
 
-class Dashboard extends Component {
-    render() {
-        return(
-            <div>
-                <TopNav />
-                <div style={styles.mainContent}>
-                    <div style={styles.btnGroup}>
-                        <SVGAddButton height='45px' />
-                        <p style={styles.btnText}>Add Category</p>
-                    </div>
-                </div>
-            </div>
-        )
+function Dashboard() {
+    const [categoryNames, setCategory] = useState([])
+    const inputCat = useRef(null)
+
+    const onSubmit = (e) =>{
+        e.preventDefault()
+        setCategory([...categoryNames, inputCat.current.value])
+        console.log(categoryNames)
+        e.target.reset()
     }
+
+    return(
+        <div>
+            <TopNav />
+            <div style={styles.mainContent}>
+                <form onSubmit={onSubmit} style={styles.addGroup}>
+                    <input type='text' ref={inputCat} placeholder='Category name...' />
+                    <button type="submit">Add Category</button>
+                </form>
+                {console.log(Array.isArray(categoryNames))}
+                {categoryNames.map((el=>{
+                    return <p style={{ textAlign: 'center', color: 'white' }}>{el}</p>
+                }))}
+            </div>
+        </div>
+    )
 }
 export default Dashboard
 
@@ -23,7 +34,7 @@ const styles = {
     mainContent: {
         padding: '1em',
     },
-    btnGroup: {
+    addGroup: {
         display: 'flex',
         alignItems: 'Center',
         height: '45px',
