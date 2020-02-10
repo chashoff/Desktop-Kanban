@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link, NavLink } from 'react-router-dom';
 
-
 const LoginForm = () => (
     <div style={styles.container}>
         <div style={styles.logoWrapper}>
