@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import TopNav from '../components/nav/TopNav';
+import Category from '../components/kanban/Category';
 
 function Dashboard() {
     const [categoryNames, setCategory] = useState([])
@@ -22,7 +23,7 @@ function Dashboard() {
                 </form>
                 {console.log(Array.isArray(categoryNames))}
                 {categoryNames.map((el=>{
-                    return <p style={{ textAlign: 'center', color: 'white' }}>{el}</p>
+                    return <Category name={el} />
                 }))}
             </div>
         </div>
