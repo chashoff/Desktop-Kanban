@@ -1,16 +1,15 @@
 import React from 'react'
 
-const Category = (props) => (
-    <div style={styles.container}>
+const Category = ({onClick, name, index}) => (
+    <div id={'cat-'+index} style={styles.container}>
         <div style={styles.headerContainer}>
-            <h3>{props.name}</h3>
-            <div>
+            <h3>{name}</h3>
+            <div style={styles.buttonGroup}>
                 <button>Add</button>
                 <button>Edit</button>
-                <button>Delete</button>
+                <button onClick={onClick}>Delete</button>
             </div>
         </div>
-        <p>Task</p>
     </div>
 )
 export default Category
@@ -23,12 +22,16 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '5px',
+        marginRight: '1em'
     },
     headerContainer: {
         backgroundColor: '#F8F7EC',
         borderRadius: '5px 5px 0 0',
-        padding: '.25em',
+        padding: '.5em .25em',
         display: 'flex',
         flexDirection: 'row'
+    },
+    buttonGroup: {
+        marginLeft: 'auto'
     }
 }
