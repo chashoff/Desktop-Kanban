@@ -3,7 +3,7 @@ import React from 'react'
 const Category = ({onClick, name, index}) => (
     <div id={'cat-'+index} style={styles.container}>
         <div style={styles.headerContainer}>
-            <h3>{name}</h3>
+            <h3 style={styles.categoryHeader}>{name}</h3>
             <div style={styles.buttonGroup}>
                 <button>Add</button>
                 <button>Edit</button>
@@ -33,5 +33,8 @@ const styles = {
     },
     buttonGroup: {
         marginLeft: 'auto'
+    },
+    categoryHeader: {
+        color: 'black'
     }
 }
