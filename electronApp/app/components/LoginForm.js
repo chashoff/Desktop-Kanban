@@ -1,7 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import SVGLogo from '../images/SVGLogo';
-import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -19,7 +18,7 @@ const LoginForm = () => (
                 <p style={{ fontSize: '.8em' }}>Would you like to stay signed in?</p>
                 <Checkbox value="uncontrolled" inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
             </div>
-            <NavLink to='/dashboard'>
+            <NavLink to="/dashboard">
                 <button style={styles.button}>Login</button>
             </NavLink>
         </form>
