@@ -1,0 +1,18 @@
+.card {
+    user-select: none;
+    margin-top: 1em;
+    background-color: #F5F5F5;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+}
+.cardHeaderBackground {
+    background-color: lightgreen !important;
+    border-radius: 5px 5px 0 0 !important;
+}
+.cardHeader {
+    color: black;
+    padding: .5em .25em;
+}
+.description {
+    color: black;
+}
