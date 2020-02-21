@@ -19,6 +19,7 @@ export default TopNav
 
 const styles = {
     container: {
+        position: 'fixed',
         width: '100%',
         backgroundColor: '#393737',
         padding: '.5em',

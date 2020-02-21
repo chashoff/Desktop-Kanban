@@ -213,8 +213,8 @@ class Dashboard extends Component {
                         <button style={styles.addBtn} type="submit">Add Category</button>
                         
                     </form>
-                    <button onClick={this.testonClick}>Add</button>
                     <div style={styles.board}>
+                    {/* <button onClick={this.testonClick}>Add</button> */}
                     <DragDropContext onDragEnd={this.onDragEnd}>
                         <Droppable droppableId="all-categories" direction="horizontal" type="category">
                             {(provided) =>(
@@ -242,20 +242,23 @@ export default Dashboard
 
 const styles = {
     mainContent: {
-        padding: '1em',
+        padding: '5.5em 1em 0 1em',
     },
     addGroup: {
         display: 'flex',
         alignItems: 'Center',
         height: '45px',
-        marginBottom: '1em'
+        marginBottom: '1em',
+        position: 'fixed'
     },
     btnText: {
         backgroundcolor: 'lightgrey'
     },
     board: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        overFlowX: 'scroll',
+        marginTop: '2em'
     },
     addBtn: {
         padding: '.5em .25em',
