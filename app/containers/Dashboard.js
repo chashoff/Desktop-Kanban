@@ -12,11 +12,12 @@ class Dashboard extends Component {
         isSettingsOpen: false,
         isDashboardOpen: false,
         isNotifications: false,
+        addCategory: "",
         categories: {
             'category-1': {
                 id: 'category-1',
                 title: 'To do',
-                cardIds: ['card-1', 'card-2', 'card-3', 'card-4', 'card-5', 'card-6', 'card-7', 'card-8', 'card-9']
+                cardIds: ['card-1', 'card-2', 'card-3', 'card-4', 'card-5', 'card-6', 'card-7', 'card-8', 'card-9', 'card-10', 'card-11', 'card-12']
             },
             'category-2': {
                 id: 'category-2',
@@ -39,6 +40,9 @@ class Dashboard extends Component {
             'card-7': { id: 'card-7', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
             'card-8': { id: 'card-8', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
             'card-9': { id: 'card-9', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
+            'card-10': { id: 'card-10', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
+            'card-11': { id: 'card-11', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
+            'card-12': { id: 'card-12', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
         },
         catOrder: ['category-1', 'category-2', 'category-3']
     }
@@ -62,15 +66,38 @@ class Dashboard extends Component {
         this.setState({["open"]: false})
     }
 
+    // testonClick = () =>{
+    //     let ct = this.state.categories
+    //     let catNum = Object.keys(ct).length
+    //     let newObject = {
+    //         id: "category-"+(catNum+1),
+    //         title: 'This works',
+    //         cardIds: []
+    //     }
+    //     ct[newObject.id] = newObject
+    //     this.setState({categories: ct})
+    //     this.setState({catOrder: [...this.state.catOrder, newObject.id]})
+    // }
+
     submitCategory = (e) =>{
         e.preventDefault()
-        console.log(uuid())
-        const catId = uuid()
-        this.setState({categories: [...this.state.categories, {[catId]:{"id": catId, "title": this.state.tempCategory, "cardIds": []}}]})
-        // this.setState({categories: [...this.state.categories, {title: this.state.tempCategory}]})
-        e.target.reset()
-        console.log(this.state)
-        // localStorage.setItem('categories',JSON.stringify(this.state.categories))
+        if(this.state.addCategory.length > 0){
+            let currentCategories = this.state.categories
+            let categoryCount = Object.keys(currentCategories).length
+            let newCategory = {
+                id: "category-"+(categoryCount+1),
+                title: (this.state.addCategory),
+                cardIds: []
+            }
+            currentCategories[newCategory.id] = newCategory
+            this.setState({categories: currentCategories})
+            this.setState({catOrder: [...this.state.catOrder, newCategory.id]})
+            this.setState({addCategory: ""})
+            e.target.reset()
+        }else{
+            alert("You cant leave this field empty...")
+        }
+        
     }
     
     deleteCategory = (i) =>{
@@ -165,16 +192,6 @@ class Dashboard extends Component {
         this.setState({isSettingsOpen: !this.state.settingsDrawer})
     }
 
-    // componentDidMount = () =>{
-    //     if(localStorage.getItem('categories')){
-    //         let categories = JSON.parse(localStorage.getItem('categories'))
-    //         this.setState({ categories})
-    //     }
-    // }
-
-    // componentWillUnmount = () =>{
-    //     localStorage.setItem('categories', JSON.stringify(this.state.categories))
-    // }
     handleDashboardHide = ()=>{
         console.log('hiding drawer');
         this.setState({isDashboardOpen: !this.state.isDashboardOpen})
@@ -187,18 +204,21 @@ class Dashboard extends Component {
         this.setState({isSettingsOpen: !this.state.isSettingsOpen})
     }
 
-    testonClick = () =>{
-        let ct = this.state.categories
-        let catNum = Object.keys(ct).length
-        let newObject = {
-            id: "category-"+(catNum+1),
-            title: 'This works',
-            cardIds: []
-        }
-        ct[newObject.id] = newObject
-        this.setState({categories: ct})
-        this.setState({catOrder: [...this.state.catOrder, newObject.id]})
+    removeCategory = (id) =>{
+        console.log("The delete works!")
+
+        let cats = {...this.state.categories}
+        let order = this.state.catOrder
+        const index = order.indexOf(id)
+        order.splice(index,1)
+        delete cats[id]
+
+        console.log(cats)
+        this.setState({categories: cats, catOrder: order})
+        console.log(this.state)
+
     }
+    
     render(){
         console.log(this.state)
         return(
@@ -209,7 +229,7 @@ class Dashboard extends Component {
                 <TopNav dashboardToggle={this.dashboardToggle} settingsToggle={this.settingsToggle} />
                 <div style={styles.mainContent}>
                     <form onSubmit={this.submitCategory} style={styles.addGroup}>
-                        <input style={styles.inputBox} type='text' name='tempCategory' onChange={this.onChange} placeholder='Category name...' />
+                        <input style={styles.inputBox} type='text' name='addCategory' onChange={this.onChange} placeholder='Category name...' />
                         <button style={styles.addBtn} type="submit">Add Category</button>
                         
                     </form>
@@ -223,7 +243,7 @@ class Dashboard extends Component {
                                         const category = this.state.categories[catId]
                                         const cards = category.cardIds.map(cardId => this.state.cards[cardId])
                                         console.log(cards.length)
-                                        return <Category key={category.id} index={index} category={category} cards={cards} />
+                                        return <Category removeCategory={this.removeCategory} key={category.id} index={index} category={category} cards={cards} />
                                     })}
                                     {provided.placeholder}
                                 </div>
@@ -243,6 +263,7 @@ export default Dashboard
 const styles = {
     mainContent: {
         padding: '5.5em 1em 0 1em',
+        overFlow: 'hidden'
     },
     addGroup: {
         display: 'flex',
@@ -257,8 +278,9 @@ const styles = {
     board: {
         display: 'flex',
         flexDirection: 'row',
-        overFlowX: 'scroll',
-        marginTop: '2em'
+        overFlow: 'scroll',
+        height: '100%',
+        marginTop: '2em',
     },
     addBtn: {
         padding: '.5em .25em',

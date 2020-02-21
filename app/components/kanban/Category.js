@@ -13,8 +13,7 @@ const Category = (props) =>(
                     <h3 style={styles.categoryHeader}>{props.category.title}</h3>
                     <div style={styles.buttonGroup}>
                         <button style={styles.btn}><IoIosAdd style={styles.icon} /></button>
-                        <button style={styles.btn}><MdEdit style={styles.icon} /></button>
-                        <button style={styles.btn}><MdDelete style={styles.icon} /></button>
+                        <button onClick={()=>props.removeCategory(props.category.id)} style={styles.btn}><MdDelete style={styles.icon} /></button>
                     </div>
                 </div>
                 <Droppable droppableId={props.category.id} type="card">
