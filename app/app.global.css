@@ -80,8 +80,9 @@ body {
   overflow-y: hidden;
 }
 .categoryContainer {
-
+  align-self: baseline;
+  min-height: 100px;
+  background-color: white;
   margin-right: 2rem;
   border-radius: 5px 5px 5px 5px;
-  height: auto;
 }

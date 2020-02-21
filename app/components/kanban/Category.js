@@ -39,7 +39,7 @@ const styles = {
         boxShadow: '0px 3px 13px -2px rgba(0,0,0,0.75)',
         width: '375px',
         backgroundColor: '#00FDDC',
-        borderRadius: '5px 5px 5px 5px',
+        borderRadius: '5px 5px 0px 0px',
         padding: '.5em .25em',
         display: 'flex',
         flexDirection: 'row'

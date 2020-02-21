@@ -16,7 +16,7 @@ class Dashboard extends Component {
             'category-1': {
                 id: 'category-1',
                 title: 'To do',
-                cardIds: ['card-1', 'card-2', 'card-3', 'card-4', 'card-5']
+                cardIds: ['card-1', 'card-2', 'card-3', 'card-4', 'card-5', 'card-6', 'card-7', 'card-8', 'card-9']
             },
             'category-2': {
                 id: 'category-2',
@@ -35,6 +35,10 @@ class Dashboard extends Component {
             'card-3': { id: 'card-3', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
             'card-4': { id: 'card-4', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
             'card-5': { id: 'card-5', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
+            'card-6': { id: 'card-6', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
+            'card-7': { id: 'card-7', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
+            'card-8': { id: 'card-8', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
+            'card-9': { id: 'card-9', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
         },
         catOrder: ['category-1', 'category-2', 'category-3']
     }
@@ -182,8 +186,21 @@ class Dashboard extends Component {
     handleSettingsHide = () =>{
         this.setState({isSettingsOpen: !this.state.isSettingsOpen})
     }
+
+    testonClick = () =>{
+        let ct = this.state.categories
+        let catNum = Object.keys(ct).length
+        let newObject = {
+            id: "category-"+(catNum+1),
+            title: 'This works',
+            cardIds: []
+        }
+        ct[newObject.id] = newObject
+        this.setState({categories: ct})
+        this.setState({catOrder: [...this.state.catOrder, newObject.id]})
+    }
     render(){
-        //console.log(this.state.open)
+        console.log(this.state)
         return(
             <div>
                 <DashboardDrawer isOpen={this.state.isDashboardOpen} onHide={this.handleDashboardHide} />
@@ -194,7 +211,9 @@ class Dashboard extends Component {
                     <form onSubmit={this.submitCategory} style={styles.addGroup}>
                         <input style={styles.inputBox} type='text' name='tempCategory' onChange={this.onChange} placeholder='Category name...' />
                         <button style={styles.addBtn} type="submit">Add Category</button>
+                        
                     </form>
+                    <button onClick={this.testonClick}>Add</button>
                     <div style={styles.board}>
                     <DragDropContext onDragEnd={this.onDragEnd}>
                         <Droppable droppableId="all-categories" direction="horizontal" type="category">
