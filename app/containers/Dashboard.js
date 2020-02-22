@@ -85,7 +85,7 @@ class Dashboard extends Component {
             let currentCategories = this.state.categories
             let categoryCount = Object.keys(currentCategories).length
             let newCategory = {
-                id: "category-"+(categoryCount+1),
+                id: uuid(),
                 title: (this.state.addCategory),
                 cardIds: []
             }
@@ -97,7 +97,7 @@ class Dashboard extends Component {
         }else{
             alert("You cant leave this field empty...")
         }
-        
+        console.log(this.state)   
     }
     
     deleteCategory = (i) =>{
