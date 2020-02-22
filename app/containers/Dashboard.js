@@ -12,7 +12,11 @@ class Dashboard extends Component {
         isSettingsOpen: false,
         isDashboardOpen: false,
         isNotifications: false,
+        isAddCardModal: false,
+        newCardCategoryId: "",
         addCategory: "",
+        taskName: "",
+        taskDescription: "",
         categories: {
             'category-1': {
                 id: 'category-1',
@@ -52,6 +56,7 @@ class Dashboard extends Component {
     })
 
     onChange = (e) => {
+        e.preventDefault()
         this.setState({ [e.target.name]: e.target.value })
     }
 
@@ -216,9 +221,18 @@ class Dashboard extends Component {
         console.log(cats)
         this.setState({categories: cats, catOrder: order})
         console.log(this.state)
-
     }
     
+    addCardModalToggle = (e) =>{
+        e.preventDefault()
+        this.setState({isAddCardModal: !this.state.isAddCardModal})
+    }
+
+    addCard = (e) =>{
+        e.preventDefault()
+        console.log(this.state.taskName, this.state.taskDescription)
+    }
+
     render(){
         console.log(this.state)
         return(
@@ -242,17 +256,15 @@ class Dashboard extends Component {
                                     {this.state.catOrder.map((catId, index)=>{
                                         const category = this.state.categories[catId]
                                         const cards = category.cardIds.map(cardId => this.state.cards[cardId])
-                                        console.log(cards.length)
-                                        return <Category removeCategory={this.removeCategory} key={category.id} index={index} category={category} cards={cards} />
+                                        return <Category addCard={this.addCardModalToggle} removeCategory={this.removeCategory} key={category.id} index={index} category={category} cards={cards} />
                                     })}
                                     {provided.placeholder}
                                 </div>
                             )}
                         </Droppable>
                     </DragDropContext>
-                        
                     </div>
-                    <AddTaskModal submitTasks={this.submitTasks} open={this.state.open} close={this.modalToggle} />
+                    <AddTaskModal onChange={this.onChange} addCard={this.addCard} submitTasks={this.submitTasks} open={this.state.isAddCardModal} close={this.addCardModalToggle} />
                 </div>
             </div>
         )

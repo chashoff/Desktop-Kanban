@@ -2,8 +2,7 @@ import React from 'react'
 import Card from '../kanban/Card'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { IoIosAdd } from "react-icons/io";
-import { MdEdit, MdDelete } from "react-icons/md";
-import Styles from './Category.css'
+import { MdDelete } from "react-icons/md";
 
 const Category = (props) =>(
     <Draggable draggableId={props.category.id} index={props.index}>
@@ -12,20 +11,19 @@ const Category = (props) =>(
                 <div {...provided.dragHandleProps} style={styles.headerContainer}>
                     <h3 style={styles.categoryHeader}>{props.category.title}</h3>
                     <div style={styles.buttonGroup}>
-                        <button style={styles.btn}><IoIosAdd style={styles.icon} /></button>
+                        <button onClick={props.addCard} style={styles.btn}><IoIosAdd style={styles.icon} /></button>
                         <button onClick={()=>props.removeCategory(props.category.id)} style={styles.btn}><MdDelete style={styles.icon} /></button>
                     </div>
                 </div>
                 <Droppable droppableId={props.category.id} type="card">
                     {(provided) => (
-                        <div style={styles.cardList} 
-                        ref={provided.innerRef} 
+                        <div style={styles.cardList}
+                        ref={provided.innerRef}
                         {...provided.droppableProps}>
                             {props.cards.map((card, i) => <Card key={card.id} index={i} card={card} />)}
                             {provided.placeholder}
                         </div>
                     )}
-                    
                 </Droppable>
             </div>
         )}

@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'react-modal';
 import { TextField } from '@material-ui/core';
 
-const addTaskModal = ({open,close,submitTasks}) =>(
+const addTaskModal = ({open,close,addCard, onChange}) =>(
     <Modal
         isOpen={open}
         style={styles}
@@ -11,9 +11,9 @@ const addTaskModal = ({open,close,submitTasks}) =>(
             <h4 style={styles.header}>Add Task</h4>
             <button style={styles.modalExit} onClick={close}>close</button>
         </div>
-        <form onSubmit={submitTasks} style={styles.addTaskForm}>
-            <TextField style={styles.input} placeholder="Task Name" variant="outlined" />
-            <TextField style={styles.input} placeholder="Description" multiline rowsMax="6" variant="outlined" />
+        <form onSubmit={()=>addCard()} style={styles.addTaskForm}>
+            <TextField style={styles.input} onChange={onChange} name="taskName" placeholder="Task Name" variant="outlined" />
+            <TextField style={styles.input} onChange={onChange} name="taskDescription" placeholder="Description" multiline rowsMax="6" variant="outlined" />
             <button type="submit">Submit</button>
         </form>
     </Modal>
