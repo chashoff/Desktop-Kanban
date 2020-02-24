@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import Styles from './Card.css';
+import { MdDelete } from "react-icons/md";
 
 const Card = (props) =>(
     <Draggable draggableId={props.card.id} index={props.index}>
         {provided=>(
             <div id={props.card.id} className={Styles.card} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                <div className={Styles.cardHeaderBackground}>
+                <div style={{ display: 'flex' }} className={Styles.cardHeaderBackground}>
                     <h3 className={Styles.cardHeader}>{props.card.header}</h3>
+                    <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete /></button>
                 </div>
                 <div style={{ padding: '.5em .25em' }}>
                     <p style={{ paddingBottom: '.5em', borderBottom: '1px solid darkgrey', color: 'black'}}>{props.card.description}</p>

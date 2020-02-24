@@ -104,11 +104,39 @@ class Dashboard extends Component {
         }
         console.log(this.state)   
     }
-    
-    deleteCategory = (i) =>{
-        this.state.categories.splice(i,1)
-        this.setState({categories: [...this.state.categories]})
-        // localStorage.setItem('categories', JSON.stringify(this.state.categories))
+    deleteCard = (id) =>{
+        let cards = this.state.categories
+        console.log(cards.entries())
+        // let cards = this.state.cards
+        // delete cards[id]
+        // this.setState({cards: cards})
+        console.log("Delete card works!")
+    }
+    addCardModalToggle = (id) =>{
+        this.setState({newCardCategoryId: id})
+        this.setState({isAddCardModal: !this.state.isAddCardModal})
+    }
+
+    addCard = (e) =>{
+        e.preventDefault()
+        let cards = this.state.cards
+        let uniqueId = uuid()
+        let newCard = {
+            id: uniqueId,
+            header: (this.state.taskName),
+            description: (this.state.taskDescription),
+            dueDate: '10/20/2018'
+        }
+        cards[uniqueId] = newCard
+        this.setState({cards: cards})
+
+        let categories = this.state.categories
+        categories[this.state.newCardCategoryId].cardIds.push(uniqueId)
+        this.setState({categories: categories})
+        console.log(categories)
+
+        this.setState({isAddCardModal: !this.state.isAddCardModal})
+        console.log(this.state.cards)
     }
 
     onDragEnd = (result) =>{
@@ -222,16 +250,6 @@ class Dashboard extends Component {
         this.setState({categories: cats, catOrder: order})
         console.log(this.state)
     }
-    
-    addCardModalToggle = (e) =>{
-        e.preventDefault()
-        this.setState({isAddCardModal: !this.state.isAddCardModal})
-    }
-
-    addCard = (e) =>{
-        e.preventDefault()
-        console.log(this.state.taskName, this.state.taskDescription)
-    }
 
     render(){
         console.log(this.state)
@@ -256,7 +274,7 @@ class Dashboard extends Component {
                                     {this.state.catOrder.map((catId, index)=>{
                                         const category = this.state.categories[catId]
                                         const cards = category.cardIds.map(cardId => this.state.cards[cardId])
-                                        return <Category addCard={this.addCardModalToggle} removeCategory={this.removeCategory} key={category.id} index={index} category={category} cards={cards} />
+                                        return <Category deleteCard={this.deleteCard} addCardModalToggle={this.addCardModalToggle} removeCategory={this.removeCategory} key={category.id} index={index} category={category} cards={cards} />
                                     })}
                                     {provided.placeholder}
                                 </div>

@@ -11,7 +11,7 @@ const Category = (props) =>(
                 <div {...provided.dragHandleProps} style={styles.headerContainer}>
                     <h3 style={styles.categoryHeader}>{props.category.title}</h3>
                     <div style={styles.buttonGroup}>
-                        <button onClick={props.addCard} style={styles.btn}><IoIosAdd style={styles.icon} /></button>
+                        <button onClick={()=> props.addCardModalToggle(props.category.id)} style={styles.btn}><IoIosAdd style={styles.icon} /></button>
                         <button onClick={()=>props.removeCategory(props.category.id)} style={styles.btn}><MdDelete style={styles.icon} /></button>
                     </div>
                 </div>
@@ -20,7 +20,7 @@ const Category = (props) =>(
                         <div style={styles.cardList}
                         ref={provided.innerRef}
                         {...provided.droppableProps}>
-                            {props.cards.map((card, i) => <Card key={card.id} index={i} card={card} />)}
+                            {props.cards.map((card, i) => <Card deleteCard={props.deleteCard} key={card.id} index={i} card={card} />)}
                             {provided.placeholder}
                         </div>
                     )}

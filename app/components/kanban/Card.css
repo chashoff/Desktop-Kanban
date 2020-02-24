@@ -16,3 +16,6 @@
 .description {
     color: black;
 }
+.transparentbutton {
+    background-color: transparent;
+}
