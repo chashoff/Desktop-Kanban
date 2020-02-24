@@ -9,7 +9,7 @@ const Card = (props) =>(
             <div id={props.card.id} className={Styles.card} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                 <div style={{ display: 'flex' }} className={Styles.cardHeaderBackground}>
                     <h3 className={Styles.cardHeader}>{props.card.header}</h3>
-                    <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete /></button>
+                    <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete style={{ color: 'darkgrey' }}/></button>
                 </div>
                 <div style={{ padding: '.5em .25em' }}>
                     <p style={{ paddingBottom: '.5em', borderBottom: '1px solid darkgrey', color: 'black'}}>{props.card.description}</p>
@@ -17,16 +17,14 @@ const Card = (props) =>(
                 </div>
             </div>
         )}
-        
     </Draggable>
-
 )   
 export default Card
 
 const styles = {
     container: {
         padding: '.5em',
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#393737',
         margin: '1em .5em',
         color: 'black',
         borderRadius: '5px 5px 5px 5px',

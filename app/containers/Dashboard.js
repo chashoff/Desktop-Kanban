@@ -17,38 +17,9 @@ class Dashboard extends Component {
         addCategory: "",
         taskName: "",
         taskDescription: "",
-        categories: {
-            'category-1': {
-                id: 'category-1',
-                title: 'To do',
-                cardIds: ['card-1', 'card-2', 'card-3', 'card-4', 'card-5', 'card-6', 'card-7', 'card-8', 'card-9', 'card-10', 'card-11', 'card-12']
-            },
-            'category-2': {
-                id: 'category-2',
-                title: 'Doing',
-                cardIds: []
-            },
-            'category-3': {
-                id: 'category-3',
-                title: 'Done',
-                cardIds: []
-            }
-        },
-        cards: {
-            'card-1': { id: 'card-1', header: 'This is the title', description: 'This is some content that is more indepth about the card.', dueDate: '10/12/2020' },
-            'card-2': { id: 'card-2', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-3': { id: 'card-3', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-4': { id: 'card-4', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-5': { id: 'card-5', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-6': { id: 'card-6', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-7': { id: 'card-7', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-8': { id: 'card-8', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-9': { id: 'card-9', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-10': { id: 'card-10', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-11': { id: 'card-11', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-            'card-12': { id: 'card-12', header: 'Work on react', description: 'Finish up stuff for Seans class', dueDate: '10/12/2020' },
-        },
-        catOrder: ['category-1', 'category-2', 'category-3']
+        categories: {},
+        cards: {},
+        catOrder: []
     }
 
     addTaskChange = (e) => setTasks({
@@ -105,11 +76,17 @@ class Dashboard extends Component {
         console.log(this.state)   
     }
     deleteCard = (id) =>{
-        let cards = this.state.categories
-        console.log(cards.entries())
-        // let cards = this.state.cards
-        // delete cards[id]
-        // this.setState({cards: cards})
+        let categories = this.state.categories
+        Object.keys(categories).map(category => {
+            const newState = this.state.categories[category].cardIds.filter(
+                cardId => id !== cardId
+            )
+            let categories = this.state.categories
+            categories[category].cardIds = newState
+            let cards = this.state.cards
+            delete cards[id]
+            this.setState({categories, cards})
+        })
         console.log("Delete card works!")
     }
     addCardModalToggle = (id) =>{
