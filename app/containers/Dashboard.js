@@ -158,12 +158,12 @@ class Dashboard extends Component {
         const finish = this.state.categories[destination.droppableId]
 
         if(start === finish){
-            const newCardIds = Array.from(this.state.category.cardIds)
+            const newCardIds = Array.from(start.cardIds)
             newCardIds.splice(source.index, 1)
             newCardIds.splice(destination.index, 0, draggableId);
 
             const newCategory = {
-                ...category,
+                ...start,
                 cardIds: newCardIds,
             }
 
@@ -179,34 +179,18 @@ class Dashboard extends Component {
         }
         const startCardIds = Array.from(start.cardIds)
         startCardIds.splice(source.index,1)
-        const newStart = {
-            ...start,
-            cardIds: startCardIds,
-        }
+        const newStart = {...start, cardIds: startCardIds}
 
         const finishCardIds = Array.from(finish.cardIds)
         finishCardIds.splice(destination.index,0,draggableId)
 
-        const newFinish = {
-            ...finish,
-            cardIds: finishCardIds,
-        }
+        const newFinish = {...finish, cardIds: finishCardIds}
 
-        const newState = {
-            ...this.state,
-            categories: {
-                ...this.state.categories,
-                [newStart.id]: newStart,
-                [newFinish.id]: newFinish,
-            }
-        }
+        const newState = {...this.state, categories: {...this.state.categories, [newStart.id]: newStart, [newFinish.id]: newFinish}}
         this.setState(newState)
-        
     }
 
     dashboardToggle = () =>{
-        console.log('dashboardToggle')
-        // this.setState({isDashboardOpen: !this.state.isDashboardOpen})
         this.setState({isDashboardOpen: true})
     
     }
@@ -216,7 +200,6 @@ class Dashboard extends Component {
     }
 
     handleDashboardHide = ()=>{
-        console.log('hiding drawer');
         this.setState({isDashboardOpen: !this.state.isDashboardOpen})
     }
     handleNotificationsChange = () =>{
