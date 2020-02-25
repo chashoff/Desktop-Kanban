@@ -22,20 +22,20 @@ class Dashboard extends Component {
         catOrder: []
     }
 
-    addTaskChange = (e) => setTasks({
-        ...tasks, [e.target.name]: [e.target.value]  
-    })
     componentWillMount(){
+        //load data from local storage
         const cards = localStorage.getItem('cards')
         const order = localStorage.getItem('catOrder')
         const categories = localStorage.getItem('categories')
 
+        //if there is no data in local storage then set the default state to either object or array depending on case
         cards ? this.setState({cards: JSON.parse(cards)}): this.setState({cards: {}})
         order ? this.setState({catOrder: JSON.parse(order)}): this.setState({catOrder: []})
         categories ? this.setState({categories: JSON.parse(categories)}): this.setState({categories: {}})
     }
     onChange = (e) => {
         e.preventDefault()
+        //dynamically set state depending on values from input
         this.setState({ [e.target.name]: e.target.value })
     }
 
@@ -46,49 +46,41 @@ class Dashboard extends Component {
 
     submitTasks = (e) =>{
         e.preventDefault()
+        //
         e.target.reset()
         this.setState({["open"]: false})
     }
 
-    // testonClick = () =>{
-    //     let ct = this.state.categories
-    //     let catNum = Object.keys(ct).length
-    //     let newObject = {
-    //         id: "category-"+(catNum+1),
-    //         title: 'This works',
-    //         cardIds: []
-    //     }
-    //     ct[newObject.id] = newObject
-    //     this.setState({categories: ct})
-    //     this.setState({catOrder: [...this.state.catOrder, newObject.id]})
-    // }
-
     submitCategory = (e) =>{
         e.preventDefault()
+        //validate to make sure input contains characters
         if(this.state.addCategory.length > 0){
             let currentCategories = this.state.categories
             let categoryCount = Object.keys(currentCategories).length
+            //create new cat object, and set values
             let newCategory = {
                 id: uuid(),
                 title: (this.state.addCategory),
                 cardIds: []
             }
+            //save the new category key to the newcategory object
+
+            //I need to combine these statements
             currentCategories[newCategory.id] = newCategory
             this.setState({categories: currentCategories})
             this.setState({catOrder: [...this.state.catOrder, newCategory.id]})
             this.setState({addCategory: ""})
             e.target.reset()
-        }else{
-            alert("You cant leave this field empty...")
         }
-        console.log(this.state)   
     }
     componentDidUpdate(){
+        //store items in local storage everytime the state updates
         localStorage.setItem('catOrder', JSON.stringify(this.state.catOrder))
         localStorage.setItem('categories', JSON.stringify(this.state.categories))
         localStorage.setItem('cards', JSON.stringify(this.state.cards))
     }
     deleteCard = (id) =>{
+        //delete card from category by passing in id, then mapping through state till it contains that id
         let categories = this.state.categories
         Object.keys(categories).map(category => {
             const newState = this.state.categories[category].cardIds.filter(
@@ -100,9 +92,9 @@ class Dashboard extends Component {
             delete cards[id]
             this.setState({categories, cards})
         })
-        console.log("Delete card works!")
     }
     addCardModalToggle = (id) =>{
+        //pass in modal id and reset the state to the opposite of what it currently is
         this.setState({newCardCategoryId: id})
         this.setState({isAddCardModal: !this.state.isAddCardModal})
     }
@@ -111,6 +103,7 @@ class Dashboard extends Component {
         e.preventDefault()
         let cards = this.state.cards
         let uniqueId = uuid()
+        //create newcard object and set values
         let newCard = {
             id: uniqueId,
             header: (this.state.taskName),
@@ -119,19 +112,16 @@ class Dashboard extends Component {
         }
         cards[uniqueId] = newCard
         this.setState({cards: cards})
-
+        //set the new state 
         let categories = this.state.categories
         categories[this.state.newCardCategoryId].cardIds.push(uniqueId)
-        this.setState({categories: categories})
-        console.log(categories)
-
-        this.setState({isAddCardModal: !this.state.isAddCardModal})
-        console.log(this.state.cards)
+        //reset the categories state, and close modal
+        this.setState({categories: categories, isAddCardModal: !this.state.isAddCardModal})
     }
 
     onDragEnd = (result) =>{
+        //destructure result, and check to see if there is destinations
         const {destination, source, draggableId, type} = result;
-
         if(!destination){
             return;
         }
@@ -142,18 +132,17 @@ class Dashboard extends Component {
             return;
         }
 
+        //validatetype and then splice from the current order, and append it to the new index
         if(type === 'category'){
             const newCategoryOrder = Array.from(this.state.catOrder)
             newCategoryOrder.splice(source.index,1)
             newCategoryOrder.splice(destination.index,0,draggableId)
 
-            const newState = {
-                ...this.state,
-                catOrder: newCategoryOrder,
-            }
-            this.setState(newState)
+            //reset the state to the new categories order
+            this.setState({...this.state, catOrder: newCategoryOrder})
         }
 
+        //set start and finish variables for droppablid
         const start = this.state.categories[source.droppableId]
         const finish = this.state.categories[destination.droppableId]
 
@@ -162,21 +151,12 @@ class Dashboard extends Component {
             newCardIds.splice(source.index, 1)
             newCardIds.splice(destination.index, 0, draggableId);
 
-            const newCategory = {
-                ...start,
-                cardIds: newCardIds,
-            }
-
-            const newState = {
-                ...this.state,
-                categories: {
-                    ...this.state.categories,
-                    [newCategory.id]: newCategory,
-                }
-            }
-            this.setState(newState)
+            const newCategory = {...start, cardIds: newCardIds}
+            //rest the categories, and catorder to the state
+            this.setState({...this.state, categories: {...this.state.categories, [newCategory.id]: newCategory}})
             return;
         }
+        //allow for reorganizing the cards within each category, and dave to state
         const startCardIds = Array.from(start.cardIds)
         startCardIds.splice(source.index,1)
         const newStart = {...start, cardIds: startCardIds}
@@ -186,8 +166,7 @@ class Dashboard extends Component {
 
         const newFinish = {...finish, cardIds: finishCardIds}
 
-        const newState = {...this.state, categories: {...this.state.categories, [newStart.id]: newStart, [newFinish.id]: newFinish}}
-        this.setState(newState)
+        this.setState({...this.state, categories: {...this.state.categories, [newStart.id]: newStart, [newFinish.id]: newFinish}})
     }
 
     dashboardToggle = () =>{
@@ -236,7 +215,6 @@ class Dashboard extends Component {
                     <form onSubmit={this.submitCategory} style={styles.addGroup}>
                         <input style={styles.inputBox} type='text' name='addCategory' onChange={this.onChange} placeholder='Category name...' />
                         <button style={styles.addBtn} type="submit">Add Category</button>
-                        
                     </form>
                     <div style={styles.board}>
                     {/* <button onClick={this.testonClick}>Add</button> */}
@@ -272,8 +250,6 @@ const styles = {
         display: 'flex',
         alignItems: 'Center',
         height: '45px',
-        marginBottom: '1em',
-        position: 'fixed'
     },
     btnText: {
         backgroundcolor: 'lightgrey'
@@ -283,7 +259,7 @@ const styles = {
         flexDirection: 'row',
         overFlow: 'scroll',
         height: '100%',
-        marginTop: '2em',
+        marginTop: '.25em'
     },
     addBtn: {
         padding: '.5em .25em',

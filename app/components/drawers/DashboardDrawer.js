@@ -34,10 +34,11 @@ const styles = {
         paddingRight: '.25em'
     },
     container: {
-        backgroundColor: 'white',
-        width: '250px',
+        backgroundColor: '#585858',
+        width: '350px',
         height: '100%',
-        padding: '.75em'
+        padding: '.75em',
+        color: 'lightgrey'
     },
     header: {
         fontSize: '1.4em',

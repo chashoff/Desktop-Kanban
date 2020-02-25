@@ -9,7 +9,7 @@ const Card = (props) =>(
             <div id={props.card.id} className={Styles.card} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                 <div style={{ display: 'flex' }} className={Styles.cardHeaderBackground}>
                     <h3 className={Styles.cardHeader}>{props.card.header}</h3>
-                    <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete style={{ color: 'darkgrey' }}/></button>
+                    <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete style={{ color: 'black' }}/></button>
                 </div>
                 <div style={{ padding: '.5em .25em' }}>
                     <p style={{ paddingBottom: '.5em', borderBottom: '1px solid darkgrey', color: 'black'}}>{props.card.description}</p>
