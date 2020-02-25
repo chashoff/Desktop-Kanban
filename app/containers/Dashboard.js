@@ -25,7 +25,15 @@ class Dashboard extends Component {
     addTaskChange = (e) => setTasks({
         ...tasks, [e.target.name]: [e.target.value]  
     })
+    componentWillMount(){
+        const cards = localStorage.getItem('cards')
+        const order = localStorage.getItem('catOrder')
+        const categories = localStorage.getItem('categories')
 
+        cards ? this.setState({cards: JSON.parse(cards)}): this.setState({cards: {}})
+        order ? this.setState({catOrder: JSON.parse(order)}): this.setState({catOrder: []})
+        categories ? this.setState({categories: JSON.parse(categories)}): this.setState({categories: {}})
+    }
     onChange = (e) => {
         e.preventDefault()
         this.setState({ [e.target.name]: e.target.value })
@@ -74,6 +82,11 @@ class Dashboard extends Component {
             alert("You cant leave this field empty...")
         }
         console.log(this.state)   
+    }
+    componentDidUpdate(){
+        localStorage.setItem('catOrder', JSON.stringify(this.state.catOrder))
+        localStorage.setItem('categories', JSON.stringify(this.state.categories))
+        localStorage.setItem('cards', JSON.stringify(this.state.cards))
     }
     deleteCard = (id) =>{
         let categories = this.state.categories
