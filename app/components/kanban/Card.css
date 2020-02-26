@@ -12,10 +12,17 @@
 .cardHeader {
     color: black;
     padding: .5em .25em;
+    font-weight: 400;
 }
 .description {
     color: black;
+    font-weight: 200;
 }
 .transparentbutton {
     background-color: transparent;
+}
+.importance {
+    border-radius: 50%;
+    height: 25px;
+    background-color: lightgreen;
 }

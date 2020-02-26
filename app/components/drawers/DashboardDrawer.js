@@ -10,17 +10,21 @@ const DashboardDrawer = ({isOpen,onHide}) =>(
             open={isOpen}>
             <div style={styles.container}>
                 <h2 style={styles.header}>Dashboard</h2>
-                <div style={styles.navItem}>
-                    <FaFlipboard style={styles.icon}/>
-                    <p style={styles.navText}>Kanban</p>
+                <div style={{borderTop: '2px solid lightgreen', borderBottom: '2px solid lightgreen'}}>
+                    <div style={styles.navItem}>
+                        <FaFlipboard style={styles.icon}/>
+                        <p style={styles.navText}>Kanban</p>
+                    </div>
                 </div>
                 <div style={styles.navItem}>
                     <FaClipboardList style={styles.icon} />
                     <p style={styles.navText}>Todo List</p>
+                    <p style={{ margin: '15px 0 0 auto' }}>Coming soon!</p>
                 </div>
                 <div style={styles.navItem}>
                     <FaUserClock style={styles.icon}/>
                     <p style={styles.navText}>Time Management</p>
+                    <p style={{ margin: '15px 0 0 auto' }}>Coming soon!</p>
                 </div>
             </div>
         </Drawer>

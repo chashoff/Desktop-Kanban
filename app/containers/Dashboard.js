@@ -17,6 +17,8 @@ class Dashboard extends Component {
         addCategory: "",
         taskName: "",
         taskDescription: "",
+        taskImportance: "",
+        dueDate: "",
         categories: {},
         cards: {},
         catOrder: []
@@ -33,10 +35,15 @@ class Dashboard extends Component {
         order ? this.setState({catOrder: JSON.parse(order)}): this.setState({catOrder: []})
         categories ? this.setState({categories: JSON.parse(categories)}): this.setState({categories: {}})
     }
+
+    colorPicker = (color) => {
+        this.setState({ taskImportance: color.hex });
+      }
+
     onChange = (e) => {
         e.preventDefault()
-        //dynamically set state depending on values from input
         this.setState({ [e.target.name]: e.target.value })
+        console.log(this.state)
     }
 
     modalToggle = () =>{
@@ -46,7 +53,6 @@ class Dashboard extends Component {
 
     submitTasks = (e) =>{
         e.preventDefault()
-        //
         e.target.reset()
         this.setState({["open"]: false})
     }
@@ -108,7 +114,8 @@ class Dashboard extends Component {
             id: uniqueId,
             header: (this.state.taskName),
             description: (this.state.taskDescription),
-            dueDate: '10/20/2018'
+            importance: (this.state.taskImportance),
+            dueDate: (this.state.dueDate)
         }
         cards[uniqueId] = newCard
         this.setState({cards: cards})
@@ -217,7 +224,6 @@ class Dashboard extends Component {
                         <button style={styles.addBtn} type="submit">Add Category</button>
                     </form>
                     <div style={styles.board}>
-                    {/* <button onClick={this.testonClick}>Add</button> */}
                     <DragDropContext onDragEnd={this.onDragEnd}>
                         <Droppable droppableId="all-categories" direction="horizontal" type="category">
                             {(provided) =>(
@@ -233,7 +239,7 @@ class Dashboard extends Component {
                         </Droppable>
                     </DragDropContext>
                     </div>
-                    <AddTaskModal onChange={this.onChange} addCard={this.addCard} submitTasks={this.submitTasks} open={this.state.isAddCardModal} close={this.addCardModalToggle} />
+                    <AddTaskModal colorPicker={this.colorPicker} onChange={this.onChange} addCard={this.addCard} submitTasks={this.submitTasks} open={this.state.isAddCardModal} close={this.addCardModalToggle} />
                 </div>
             </div>
         )

@@ -12,8 +12,8 @@ const LoginForm = () => (
         <h2 style={{ color: 'lightgrey', textAlign: 'center', fontSize: '24px', paddingBottom: '.25em', fontWeight: '100'}}>Login</h2>
         <p style={{ textAlign: 'center', padding: '.50em 0 .75em 0'}}>Don't have an account? Sign up <Link style={styles.link} to="/signup">here</Link>!</p>
         <form style={styles.form}>
-            <TextField style={styles.input} label="Username" variant="outlined" />
-            <TextField style={styles.input} label="Password" variant="outlined" />
+            <TextField style={styles.input} required label="Username" variant="outlined" />
+            <TextField style={styles.input} required label="Password" variant="outlined" />
             <div style={styles.checkboxContainer}>
                 <p style={{ fontSize: '.8em' }}>Would you like to stay signed in?</p>
                 <Checkbox value="uncontrolled" inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />

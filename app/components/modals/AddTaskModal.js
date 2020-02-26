@@ -1,8 +1,9 @@
 import React from 'react'
 import Modal from 'react-modal';
 import { TextField } from '@material-ui/core';
+import { CirclePicker } from 'react-color';
 
-const addTaskModal = ({open,close,addCard, onChange}) =>(
+const addTaskModal = ({open,close,addCard, onChange, colorPicker}) =>(
     <Modal
         isOpen={open}
         style={styles}
@@ -12,15 +13,43 @@ const addTaskModal = ({open,close,addCard, onChange}) =>(
             <button style={styles.modalExit} onClick={close}>close</button>
         </div>
         <form onSubmit={addCard} style={styles.addTaskForm}>
-            <TextField style={styles.input} onChange={onChange} name="taskName" placeholder="Task Name" variant="outlined" />
-            <TextField style={styles.input} onChange={onChange} name="taskDescription" placeholder="Description" multiline rowsMax="6" variant="outlined" />
-            <button type="submit">Submit</button>
+            <TextField style={styles.input} onChange={onChange} required name="taskName" placeholder="Task Name" variant="outlined" />
+            <TextField style={styles.input} onChange={onChange} required name="taskDescription" placeholder="Description" multiline rowsMax="6" variant="outlined" />
+            <div style={styles.secondaryContent}>
+                <div style={{}}>
+                    <p style={{color: 'grey', fontSize: '12px',padding: '0 0 .5em .75em'}}>Importance</p>
+                    <CirclePicker color="#ffff" onChangeComplete={colorPicker} />
+                </div>
+                <div style={{display: "flex", flexDirection: "column", marginLeft: '1em', width: '43.5%'}}>
+                    <TextField style={{marginTop: '1em'}} label="Due Date" type="date" defaultValue="12-20-2018" variant='outlined' InputLabelProps={{ shrink: true }} />
+                    <TextField style={{marginTop: '1em'}} label="Time Due" type="time" defaultValue="" variant='outlined' InputLabelProps={{ shrink: true }}/>
+                </div>
+            </div>
+            <button type="submit" style={styles.addBtn}>Submit</button>
         </form>
     </Modal>
 )
 export default addTaskModal
 
 const styles = {
+    addBtn: {
+        backgroundColor: 'lightgreen',
+        marginTop: '1em',
+        padding: '.5em 0',
+        color: 'white',
+        borderRadius: '4px'
+    },
+    secondaryContent: {
+        marginTop: '1em',
+        display: 'flex'
+    },
+    radiobtns:{
+        display: 'flex',
+        flexDirection: 'row',
+        backgroundColor: 'lightgrey',
+        padding: '1em',
+        justifyContent: 'center'
+    },
     modalHeader: {
         display: 'flex',
         flexDirection: 'row',
@@ -36,12 +65,12 @@ const styles = {
         right: 20
     },
     input: {
-        marginTop: '.75em'
+        marginTop: '1em'
     },
     addTaskForm: {
         display: 'flex',
         flexDirection: 'column',
-        width: '400px'
+        width: '450px'
     },
     content: {
         top: '50%',
