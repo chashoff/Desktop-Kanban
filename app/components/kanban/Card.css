@@ -4,6 +4,9 @@
     background-color: #F5F5F5;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 .cardHeaderBackground {
     background-color: lightgrey !important;
@@ -17,12 +20,8 @@
 .description {
     color: black;
     font-weight: 200;
+    flex: 1;
 }
 .transparentbutton {
     background-color: transparent;
-}
-.importance {
-    border-radius: 50%;
-    height: 25px;
-    background-color: lightgreen;
 }

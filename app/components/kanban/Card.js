@@ -14,9 +14,10 @@ const Card = (props) =>(
                         <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete style={{ color: 'black', padding: '3px 0 0 10px', fontSize: '20px' }}/></button>
                     </div>
                 </div>
-                <div style={{ padding: '.5em .25em' }}>
-                    <p style={{ paddingBottom: '.5em', borderBottom: '1px solid darkgrey', color: 'black'}}>{props.card.description}</p>
-                    <p style={{ paddingTop: '.5em', fontSize: '.6em',color: 'lightgrey' }}>{props.card.dueDate}</p>
+                {console.log(props.card)}
+                <div style={{ padding: '.5em .25em', display: 'flex', flexDirection: 'column' }}>
+                    <p style={{ paddingBottom: '.5em', color: 'black'}}>{props.card.description}</p>
+                    <p style={{ fontSize: '.6em',color: 'darkgrey', alignSelf: 'flex-end' }}>Due by {props.card.dueDate} at {props.card.timeDue}</p>
                 </div>
             </div>
         )}
@@ -26,6 +27,8 @@ export default Card
 
 const styles = {
     container: {
+        width: 'auto',
+        wordWrap: 'break-word',
         padding: '.5em',
         backgroundColor: '#393737',
         margin: '1em .5em',
@@ -45,12 +48,11 @@ const styles = {
     },
     description: {
         paddingBottom: '.5em',
-        borderBottom: '1px solid darkgrey'
     },
     date: {
         paddingTop: '.5em',
         fontSize: '.6em',
-        color: 'lightgrey'
+        color: 'darkgrey'
     }
 
 }

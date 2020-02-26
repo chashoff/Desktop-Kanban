@@ -18,7 +18,8 @@ class Dashboard extends Component {
         taskName: "",
         taskDescription: "",
         taskImportance: "",
-        dueDate: "",
+        taskDueDate: "",
+        taskTimeDue: "",
         categories: {},
         cards: {},
         catOrder: []
@@ -42,6 +43,7 @@ class Dashboard extends Component {
 
     onChange = (e) => {
         e.preventDefault()
+        console.log(e.target.value)
         this.setState({ [e.target.name]: e.target.value })
         console.log(this.state)
     }
@@ -115,7 +117,8 @@ class Dashboard extends Component {
             header: (this.state.taskName),
             description: (this.state.taskDescription),
             importance: (this.state.taskImportance),
-            dueDate: (this.state.dueDate)
+            dueDate: (this.state.taskDueDate),
+            timeDue: (this.state.taskTimeDue)
         }
         cards[uniqueId] = newCard
         this.setState({cards: cards})

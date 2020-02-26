@@ -85,4 +85,5 @@ body {
   margin-right: 2rem;
   border-radius: 5px 5px 5px 5px;
   margin-bottom: 1em;
+  max-width: 350px;
 }

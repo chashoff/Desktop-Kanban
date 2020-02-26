@@ -13,7 +13,7 @@ const addTaskModal = ({open,close,addCard, onChange, colorPicker}) =>(
             <button style={styles.modalExit} onClick={close}>close</button>
         </div>
         <form onSubmit={addCard} style={styles.addTaskForm}>
-            <TextField style={styles.input} onChange={onChange} required name="taskName" placeholder="Task Name" variant="outlined" />
+            <TextField style={styles.input} onChange={onChange} required name="taskName" placeholder="Task Name" variant="outlined" inputProps={{ maxLength: 20}} />
             <TextField style={styles.input} onChange={onChange} required name="taskDescription" placeholder="Description" multiline rowsMax="6" variant="outlined" />
             <div style={styles.secondaryContent}>
                 <div style={{}}>
@@ -21,8 +21,8 @@ const addTaskModal = ({open,close,addCard, onChange, colorPicker}) =>(
                     <CirclePicker color="#ffff" onChangeComplete={colorPicker} />
                 </div>
                 <div style={{display: "flex", flexDirection: "column", marginLeft: '1em', width: '43.5%'}}>
-                    <TextField style={{marginTop: '1em'}} label="Due Date" type="date" defaultValue="12-20-2018" variant='outlined' InputLabelProps={{ shrink: true }} />
-                    <TextField style={{marginTop: '1em'}} label="Time Due" type="time" defaultValue="" variant='outlined' InputLabelProps={{ shrink: true }}/>
+                    <TextField style={{marginTop: '1em'}} required label="Due Date" name="taskDueDate" onChange={onChange} type="date" variant='outlined' InputLabelProps={{ shrink: true }} />
+                    <TextField style={{marginTop: '1em'}} required label="Time Due" onChange={onChange} name="taskTimeDue" type="time" variant='outlined' InputLabelProps={{ shrink: true }}/>
                 </div>
             </div>
             <button type="submit" style={styles.addBtn}>Submit</button>
@@ -33,7 +33,7 @@ export default addTaskModal
 
 const styles = {
     addBtn: {
-        backgroundColor: 'lightgreen',
+        backgroundColor: '#00FDDC',
         marginTop: '1em',
         padding: '.5em 0',
         color: 'white',
@@ -78,6 +78,6 @@ const styles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
     }
 }

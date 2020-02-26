@@ -34,7 +34,7 @@ export default Category
 const styles = {
     headerContainer: {
         boxShadow: '0px 3px 13px -2px rgba(0,0,0,0.75)',
-        width: '375px',
+        width: '350px',
         backgroundColor: '#00FDDC',
         borderRadius: '5px 5px 0px 0px',
         padding: '.5em .25em',
