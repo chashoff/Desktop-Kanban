@@ -20,7 +20,7 @@ const Category = (props) =>(
                         <div style={styles.cardList}
                         ref={provided.innerRef}
                         {...provided.droppableProps}>
-                            {props.cards.map((card, i) => <Card deleteCard={props.deleteCard} key={card.id} index={i} card={card} />)}
+                            {props.cards.map((card, i) => <Card deleteCard={props.deleteCard} editCard={props.editCard} key={card.id} index={i} card={card} />)}
                             {provided.placeholder}
                         </div>
                     )}

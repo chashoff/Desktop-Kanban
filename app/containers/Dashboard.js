@@ -6,6 +6,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import DashboardDrawer from '../components/drawers/DashboardDrawer';
 import SettingsDrawer from '../components/drawers/SettingsDrawer';
 import { uuid } from 'uuidv4';
+import EditTask from '../components/modals/EditTask';
 
 class Dashboard extends Component {
     state = {
@@ -13,6 +14,7 @@ class Dashboard extends Component {
         isDashboardOpen: false,
         isNotifications: true,
         isAddCardModal: false,
+        isEditModal: false,
         newCardCategoryId: "",
         addCategory: "",
         taskName: "",
@@ -24,24 +26,20 @@ class Dashboard extends Component {
         cards: {},
         catOrder: []
     }
-    componentDidMount(){
-        if(this.state.isNotifications === true){
-            setInterval(() => {
-                console.log("60 seconds run")
-            }, 60000);
-        }
-    }
 
     componentWillMount(){
         //load data from local storage
         const cards = localStorage.getItem('cards')
         const order = localStorage.getItem('catOrder')
         const categories = localStorage.getItem('categories')
+        const notifications = localStorage.getItem('notifications')
 
         //if there is no data in local storage then set the default state to either object or array depending on case
         cards ? this.setState({cards: JSON.parse(cards)}): this.setState({cards: {}})
         order ? this.setState({catOrder: JSON.parse(order)}): this.setState({catOrder: []})
         categories ? this.setState({categories: JSON.parse(categories)}): this.setState({categories: {}})
+        this.setState({isNotifications: JSON.parse(notifications)})
+
     }
 
     colorPicker = (color) => {
@@ -93,7 +91,9 @@ class Dashboard extends Component {
         localStorage.setItem('catOrder', JSON.stringify(this.state.catOrder))
         localStorage.setItem('categories', JSON.stringify(this.state.categories))
         localStorage.setItem('cards', JSON.stringify(this.state.cards))
+        localStorage.setItem('notifications', this.state.isNotifications)
     }
+
     deleteCard = (id) =>{
         //delete card from category by passing in id, then mapping through state till it contains that id
         let categories = this.state.categories
@@ -108,10 +108,35 @@ class Dashboard extends Component {
             this.setState({categories, cards})
         })
     }
+
+    editCard = (id) =>{
+        this.setState({isEditModal: true, tempId: id})
+    }
+
+    resaveCard = (e) =>{
+        e.preventDefault()
+        this.handleEditTaskToggle()
+        let cards = this.state.cards
+        let card = cards[this.state.tempId]
+        card = {
+            id: (this.state.tempId),
+            header: (this.state.taskName),
+            description: (this.state.taskDescription),
+            importance: (this.state.taskImportance),
+            dueDate: (this.state.taskDueDate),
+            timeDue: (this.state.taskTimeDue)
+        }
+        cards[this.state.tempId] = card
+        this.setState({cards: cards})
+    }
+
     addCardModalToggle = (id) =>{
         //pass in modal id and reset the state to the opposite of what it currently is
         this.setState({newCardCategoryId: id})
         this.setState({isAddCardModal: !this.state.isAddCardModal})
+    }
+    handleEditTaskToggle = () =>{
+        this.setState({isEditModal: !this.state.isEditModal})
     }
 
     addCard = (e) =>{
@@ -200,37 +225,46 @@ class Dashboard extends Component {
     }
     handleNotificationsChange = () =>{
         this.setState({isNotifications: !this.state.isNotifications})
+        if(this.state.isNotifications === true){
+            let myNotification = new Notification('TimeGuru', {
+                body: 'Your notifications have been disabled!'
+            })
+        }else{
+            let myNotification = new Notification('TimeGuru', {
+                body: 'Your notifications have been enabled!'
+            })
+        }
+        
     }
 
     handleSettingsHide = () =>{
         this.setState({isSettingsOpen: !this.state.isSettingsOpen})
     }
+    handleRemoveCategoryModalToggle = () =>{
+        this.setState({isConfirmModal: !this.state.isConfirmModal})
+    }
 
     removeCategory = (id) =>{
-        console.log("The delete works!")
-
         let cats = {...this.state.categories}
+        
         let order = this.state.catOrder
         const index = order.indexOf(id)
         order.splice(index,1)
+
         delete cats[id]
-
-        console.log(cats)
-        this.setState({categories: cats, catOrder: order})
-        console.log(this.state)
+        this.setState({categories: cats, catOrder: order, isConfirmModal: true})
     }
-
     render(){
         console.log(this.state)
         return(
             <div>
                 <DashboardDrawer isOpen={this.state.isDashboardOpen} onHide={this.handleDashboardHide} />
-                <SettingsDrawer onSwitchChange={this.handleNotificationsChange} isNotifications={this.state.isSettingsOpen} isOpen={this.state.isSettingsOpen} onHide={this.handleSettingsHide} />
+                <SettingsDrawer onSwitchChange={this.handleNotificationsChange} isNotifications={this.state.isNotifications} isOpen={this.state.isSettingsOpen} onHide={this.handleSettingsHide} />
                 
                 <TopNav dashboardToggle={this.dashboardToggle} settingsToggle={this.settingsToggle} />
                 <div style={styles.mainContent}>
                     <form onSubmit={this.submitCategory} style={styles.addGroup}>
-                        <input style={styles.inputBox} type='text' name='addCategory' onChange={this.onChange} placeholder='Category name...' />
+                        <input style={styles.inputBox} type='text' name='addCategory' maxLength='30' onChange={this.onChange} placeholder='Category name...' />
                         <button style={styles.addBtn} type="submit">Add Category</button>
                     </form>
                     <div style={styles.board}>
@@ -241,7 +275,7 @@ class Dashboard extends Component {
                                     {this.state.catOrder.map((catId, index)=>{
                                         const category = this.state.categories[catId]
                                         const cards = category.cardIds.map(cardId => this.state.cards[cardId])
-                                        return <Category deleteCard={this.deleteCard} addCardModalToggle={this.addCardModalToggle} removeCategory={this.removeCategory} key={category.id} index={index} category={category} cards={cards} />
+                                        return <Category deleteCard={this.deleteCard} editCard={this.editCard} addCardModalToggle={this.addCardModalToggle} removeCategory={this.removeCategory} key={category.id} index={index} category={category} cards={cards} />
                                     })}
                                     {provided.placeholder}
                                 </div>
@@ -250,6 +284,7 @@ class Dashboard extends Component {
                     </DragDropContext>
                     </div>
                     <AddTaskModal colorPicker={this.colorPicker} onChange={this.onChange} addCard={this.addCard} submitTasks={this.submitTasks} open={this.state.isAddCardModal} close={this.addCardModalToggle} />
+                    <EditTask deleteCard={this.deleteCard} resaveCard={this.resaveCard} open={this.state.isEditModal} data={this.state.cards[this.state.tempId]} close={this.handleEditTaskToggle} onChange={this.onChange} colorPicker={this.colorPicker}/>
                 </div>
             </div>
         )
@@ -266,6 +301,7 @@ const styles = {
         display: 'flex',
         alignItems: 'Center',
         height: '45px',
+        width: '350px'
     },
     btnText: {
         backgroundcolor: 'lightgrey'

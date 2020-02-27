@@ -1,7 +1,7 @@
 import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import Styles from './Card.css';
-import { MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete } from "react-icons/md";
 
 const Card = (props) =>(
     <Draggable draggableId={props.card.id} index={props.index}>
@@ -10,8 +10,9 @@ const Card = (props) =>(
                 <div style={{ display: 'flex' }} className={Styles.cardHeaderBackground}>
                     <h3 className={Styles.cardHeader}>{props.card.header}</h3>
                     <div style={{display: 'flex', marginLeft: 'auto'}}>
-                        <div style={{backgroundColor: props.card.importance, height: '20px', width: '20px', borderRadius: '50%', margin: 'auto 0'}}></div>
-                        <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete style={{ color: 'black', padding: '3px 0 0 10px', fontSize: '20px' }}/></button>
+                        <button onClick={()=>props.editCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdEdit style={{ color: 'darkgrey', padding: '3px 0 0 2px', fontSize: '20px' }}/></button>
+                        <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete style={{ color: 'darkgrey', padding: '3px 0 0 2px', fontSize: '20px' }}/></button>
+                        <div style={{backgroundColor: props.card.importance, height: '20px', width: '20px', borderRadius: '50%', margin: 'auto .25em auto 2px'}}></div>
                     </div>
                 </div>
                 {console.log(props.card)}

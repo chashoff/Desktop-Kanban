@@ -10,7 +10,11 @@ const SettingsDrawer = ({isOpen, onHide, isNotifications, onSwitchChange}) =>(
         anchor='right'
         open={isOpen}>
         <div style={styles.container}>
-            <h2 style={styles.header}>Settings</h2>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <h2 style={styles.header}>Settings</h2>
+                <button style={{backgroundColor: 'transparent', padding: '0 !important', color: 'lightgray'}} onClick={onHide}>Close</button>
+            </div>
+            
             <div style={styles.navItem}>
                 <MdNotifications style={styles.icon} />
                 <p style={styles.navText}>Notifications</p>
@@ -34,14 +38,15 @@ const styles = {
         paddingRight: '.25em'
     },
     container: {
-        backgroundColor: 'lightgray',
+        backgroundColor: '#585858',
         width: '250px',
         height: '100%',
-        padding: '.75em'
+        padding: '.75em',
+        color: 'lightgrey'
     },
     header: {
         fontSize: '1.4em',
-        marginBottom: '1em'
+        margin: 'auto 0',
     },
     navItem: {
         display: 'flex',
