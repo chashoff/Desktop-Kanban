@@ -11,7 +11,7 @@ class Dashboard extends Component {
     state = {
         isSettingsOpen: false,
         isDashboardOpen: false,
-        isNotifications: false,
+        isNotifications: true,
         isAddCardModal: false,
         newCardCategoryId: "",
         addCategory: "",
@@ -23,6 +23,13 @@ class Dashboard extends Component {
         categories: {},
         cards: {},
         catOrder: []
+    }
+    componentDidMount(){
+        if(this.state.isNotifications === true){
+            setInterval(() => {
+                console.log("60 seconds run")
+            }, 60000);
+        }
     }
 
     componentWillMount(){
@@ -39,7 +46,7 @@ class Dashboard extends Component {
 
     colorPicker = (color) => {
         this.setState({ taskImportance: color.hex });
-      }
+    }
 
     onChange = (e) => {
         e.preventDefault()

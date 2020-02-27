@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import Styles from './Card.css';
 import { MdDelete } from "react-icons/md";
