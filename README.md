@@ -9,7 +9,6 @@ Multiple times I have used other task management systems, and I always run into 
 ![TimeGuru UI Drag N Drop](app/TimeGuru_App-1.png)
 
 ## Installation
----
-**NOTE**
+```bash
 git clone https://github.com/chasehoff/Desktop-Kanban.git
----
+```
