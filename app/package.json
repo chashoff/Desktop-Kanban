@@ -11,8 +11,11 @@
   },
   "scripts": {
     "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
-    "postinstall": "yarn electron-rebuild"
+    "postinstall": "yarn electron-rebuild",
+    "test": "mocha"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "mocha": "^7.1.0"
+  }
 }

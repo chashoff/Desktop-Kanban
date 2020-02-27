@@ -7,6 +7,7 @@ import DashboardDrawer from '../components/drawers/DashboardDrawer';
 import SettingsDrawer from '../components/drawers/SettingsDrawer';
 import { uuid } from 'uuidv4';
 import EditTask from '../components/modals/EditTask';
+import { MdAddCircle } from 'react-icons/md'
 
 class Dashboard extends Component {
     state = {
@@ -264,8 +265,8 @@ class Dashboard extends Component {
                 <TopNav dashboardToggle={this.dashboardToggle} settingsToggle={this.settingsToggle} />
                 <div style={styles.mainContent}>
                     <form onSubmit={this.submitCategory} style={styles.addGroup}>
-                        <input style={styles.inputBox} type='text' name='addCategory' maxLength='30' onChange={this.onChange} placeholder='Category name...' />
-                        <button style={styles.addBtn} type="submit">Add Category</button>
+                        <input style={styles.inputBox} type='text' name='addCategory' maxLength='30' onChange={this.onChange} placeholder='Add category here...' />
+                        <button style={styles.addBtn} type="submit"><MdAddCircle style={{color: '#3bd46c', fontSize: '1.75em', backgroundColor: 'transparent'}} /></button>
                     </form>
                     <div style={styles.board}>
                     <DragDropContext onDragEnd={this.onDragEnd}>
@@ -301,6 +302,7 @@ const styles = {
         display: 'flex',
         alignItems: 'Center',
         height: '45px',
+        position: 'relative',
         width: '350px'
     },
     btnText: {
@@ -314,12 +316,14 @@ const styles = {
         marginTop: '.25em'
     },
     addBtn: {
-        padding: '.5em .25em',
-        backgroundColor: 'lightGreen',
+        backgroundColor: 'lightgrey',
+        position: 'relative',
+        padding: '.15em',
         borderRadius: '0 4px 4px 0'
     },
     inputBox: {
         padding: '.5em .25em',
-        borderRadius: '4px 0 0 4px'
+        borderRadius: '4px 0px 0px 4px',
+        width: '350px'
     }
 }

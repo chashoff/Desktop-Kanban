@@ -269,6 +269,7 @@
     "electron-log": "^4.0.0",
     "electron-updater": "^4.2.0",
     "history": "^4.10.1",
+    "mocha": "^7.1.0",
     "react": "^16.12.0",
     "react-beautiful-dnd": "^12.2.0",
     "react-color": "^2.18.0",
