@@ -29,3 +29,11 @@ To package app for release
 yarn package
 ```
 Make sure to update package.json inside of ./app
+
+## Libraries/Frameworks
+### Frameworks
+* Electron
+
+### Libraries
+* ReactJs
+
