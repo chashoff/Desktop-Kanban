@@ -9,6 +9,23 @@ Multiple times I have used other task management systems, and I always run into 
 ![TimeGuru UI Drag N Drop](app/TimeGuru_App-1.png)
 
 ## Installation
+Clone the master branch from the Repo for the most updated version of TimeGuru.
 ```bash
 git clone https://github.com/chasehoff/Desktop-Kanban.git
 ```
+Intall yarn
+```bash
+yarn
+```
+
+Run devleopment environment
+```bash
+yarn dev
+```
+
+### Package
+To package app for release
+```bash
+yarn package
+```
+Make sure to update package.json inside of ./app
