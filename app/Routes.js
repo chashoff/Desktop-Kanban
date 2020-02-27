@@ -6,8 +6,8 @@ import SignupForm from './components/SignupForm';
 
 export default () => (
     <HashRouter>
-      <Route exact path="/" component={LoginPage} />
-      <Route exact path="/dashboard" component={Dashboard} />
+    <Route exact path="/" component={Dashboard} />
+      <Route exact path="/login" component={LoginPage}/>
       <Route exact path="/signup" component={SignupForm} />
     </HashRouter>
 );
