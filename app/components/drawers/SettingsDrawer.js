@@ -2,8 +2,9 @@ import React from 'react'
 import { Drawer } from '@material-ui/core'
 import { MdNotifications } from "react-icons/md";
 import Switch from '@material-ui/core/Switch';
+import { FaRedo } from 'react-icons/fa'
 
-const SettingsDrawer = ({isOpen, onHide, isNotifications, onSwitchChange}) =>(
+const SettingsDrawer = ({isOpen, onHide, isNotifications, onSwitchChange, resetState}) =>(
     <Drawer
         ModalProps={{ onClose : ()=>onHide() }}
         docked='false'
@@ -18,11 +19,11 @@ const SettingsDrawer = ({isOpen, onHide, isNotifications, onSwitchChange}) =>(
             <div style={styles.navItem}>
                 <MdNotifications style={styles.icon} />
                 <p style={styles.navText}>Notifications</p>
-                <Switch style={styles.switch}
-                    checked={isNotifications}
-                    onChange={onSwitchChange}
-                    color="primary"
-                />
+                <Switch style={styles.switch} checked={isNotifications} onChange={onSwitchChange} color="primary" />
+            </div>
+            <div style={styles.navItem}>
+                <FaRedo style={styles.icon}/>
+                <button style={{fontSize: '1em', backgroundColor: 'transparent', color: 'lightgrey', outline: 'none'}} onClick={resetState}>Reset</button>
             </div>
         </div>
     </Drawer>

@@ -1,7 +1,7 @@
 {
   "name": "timeguru",
   "productName": "timeguru",
-  "version": "0.0.4",
+  "version": "PRESENT-0.0.5",
   "description": "Task management system meant to help improve self efficiency.",
   "main": "./main.prod.js",
   "author": {
