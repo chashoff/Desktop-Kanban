@@ -2,6 +2,7 @@ import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import Styles from './Card.css';
 import { MdEdit, MdDelete } from "react-icons/md";
+import Tooltip from '@material-ui/core/Tooltip'
 
 const Card = (props) =>(
     <Draggable draggableId={props.card.id} index={props.index}>
@@ -10,8 +11,12 @@ const Card = (props) =>(
                 <div style={{ display: 'flex' }} className={Styles.cardHeaderBackground}>
                     <h3 className={Styles.cardHeader}>{props.card.header}</h3>
                     <div style={{display: 'flex', marginLeft: 'auto'}}>
-                        <button onClick={()=>props.editCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdEdit style={{ color: 'darkgrey', padding: '3px 0 0 2px', fontSize: '20px' }}/></button>
-                        <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete style={{ color: 'darkgrey', padding: '3px 0 0 2px', fontSize: '20px' }}/></button>
+                        <Tooltip title="Edit Task" placement="top">
+                            <button onClick={()=>props.editCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdEdit style={{ color: 'darkgrey', padding: '3px 0 0 2px', fontSize: '20px' }}/></button>
+                        </Tooltip>
+                        <Tooltip title="Delete Task" placement="top">
+                            <button onClick={()=>props.deleteCard(props.card.id)} style={{ backgroundColor: 'transparent', marginLeft: 'auto', fontSize: '1em' }} className={Styles.transparentButton}><MdDelete style={{ color: 'darkgrey', padding: '3px 0 0 2px', fontSize: '20px' }}/></button>
+                        </Tooltip>
                         <div style={{backgroundColor: props.card.importance, height: '20px', width: '20px', borderRadius: '50%', margin: 'auto .25em auto 2px'}}></div>
                     </div>
                 </div>
