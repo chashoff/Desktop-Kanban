@@ -8,6 +8,7 @@ import SettingsDrawer from '../components/drawers/SettingsDrawer';
 import { uuid } from 'uuidv4';
 import EditTask from '../components/modals/EditTask';
 import { MdAddCircle } from 'react-icons/md'
+import Tooltip from '@material-ui/core/Tooltip'
 
 class Dashboard extends Component {
     state = {
@@ -36,10 +37,20 @@ class Dashboard extends Component {
         const notifications = localStorage.getItem('notifications')
 
         //if there is no data in local storage then set the default state to either object or array depending on case
-        cards ? this.setState({cards: JSON.parse(cards)}): this.setState({cards: {}})
-        order ? this.setState({catOrder: JSON.parse(order)}): this.setState({catOrder: []})
-        categories ? this.setState({categories: JSON.parse(categories)}): this.setState({categories: {}})
-        this.setState({isNotifications: JSON.parse(notifications)})
+        if(cards != null && order != null && categories != null){
+            console.log("this works")
+            cards ? this.setState({cards: JSON.parse(cards)}): this.setState({cards: {}})
+            order ? this.setState({catOrder: JSON.parse(order)}): this.setState({catOrder: []})
+            categories ? this.setState({categories: JSON.parse(categories)}): this.setState({categories: {}})
+            this.setState({isNotifications: JSON.parse(notifications)})
+        }else{
+            let defaultCards = {"468d7581-74b8-4590-b1ed-2c0417bd1c61":{"id":"468d7581-74b8-4590-b1ed-2c0417bd1c61","header":"Create First Category","description":"Click on the add category text box, and create your very first category box!","importance":"#cddc39","dueDate":"2020-12-31","timeDue":"00:00"},"86d4e012-7ee3-4865-b978-2cba8c7228c9":{"id":"86d4e012-7ee3-4865-b978-2cba8c7228c9","header":"Create First Task","description":"Click on the \"Add Task\" button within your desired column, then chose the title, description, due date, color, and time due.","importance":"#ffeb3b","dueDate":"2020-12-31","timeDue":"00:00"},"18a52798-71a6-438b-a9b3-635f0362457c":{"id":"18a52798-71a6-438b-a9b3-635f0362457c","header":"Delete a Category","description":"Select a desired category to delete! Remember, if this category contains cards you will not be able to undo it!.","importance":"#ffc107","dueDate":"2020-12-31","timeDue":"00:00"},"aa70a23b-8b0c-4360-b76d-8d0049732b08":{"id":"aa70a23b-8b0c-4360-b76d-8d0049732b08","header":"Delete a Task","description":"Delete a desired task within a category. Remeber, you will not be able to get this data back once deleted!","importance":"#f44336","dueDate":"2020-12-31","timeDue":"00:00"},"1178c4f0-8744-440e-a260-dc80258eec2e":{"id":"1178c4f0-8744-440e-a260-dc80258eec2e","header":"Edit a Task","description":"Click \"Edit Task\" on the task you would like to edit. Change the inputs to your likings then click \"Update\"!","importance":"#9c27b0","dueDate":"2020-12-31","timeDue":"00:00"}}
+            let defaultCategories = {"96107280-4c70-400e-9bb6-42d2c875303a":{"id":"96107280-4c70-400e-9bb6-42d2c875303a","title":"To Do","cardIds":["468d7581-74b8-4590-b1ed-2c0417bd1c61","86d4e012-7ee3-4865-b978-2cba8c7228c9","18a52798-71a6-438b-a9b3-635f0362457c","aa70a23b-8b0c-4360-b76d-8d0049732b08","1178c4f0-8744-440e-a260-dc80258eec2e"]},"25a315f8-09fc-4389-b82d-ba55827540de":{"id":"25a315f8-09fc-4389-b82d-ba55827540de","title":"Doing","cardIds":[]},"e2119815-a82a-46c2-8d1b-2be8e44e712f":{"id":"e2119815-a82a-46c2-8d1b-2be8e44e712f","title":"Done","cardIds":[]}}
+            let defOrder = ["96107280-4c70-400e-9bb6-42d2c875303a","25a315f8-09fc-4389-b82d-ba55827540de","e2119815-a82a-46c2-8d1b-2be8e44e712f"]
+            
+            this.setState({catOrder: defOrder,categories: defaultCategories, cards: defaultCards})
+        }
+        
 
     }
 
@@ -265,8 +276,10 @@ class Dashboard extends Component {
                 <TopNav dashboardToggle={this.dashboardToggle} settingsToggle={this.settingsToggle} />
                 <div style={styles.mainContent}>
                     <form onSubmit={this.submitCategory} style={styles.addGroup}>
-                        <input style={styles.inputBox} type='text' name='addCategory' maxLength='30' onChange={this.onChange} placeholder='Add category here...' />
-                        <button style={styles.addBtn} type="submit"><MdAddCircle style={{color: '#3bd46c', fontSize: '1.75em', backgroundColor: 'transparent'}} /></button>
+                        <input style={styles.inputBox} type='text' name='addCategory' maxLength='32' onChange={this.onChange} placeholder='Add category here...' />
+                        <Tooltip title="Add Category" placement="top">
+                            <button style={styles.addBtn} type="submit"><MdAddCircle style={{paddingTop: '3px',margin: 'auto 0', color: '#333333', fontSize: '1.5em', backgroundColor: 'transparent'}} /></button>
+                        </Tooltip>
                     </form>
                     <div style={styles.board}>
                     <DragDropContext onDragEnd={this.onDragEnd}>
@@ -316,14 +329,19 @@ const styles = {
         marginTop: '.25em'
     },
     addBtn: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: '#00FDDC',
         position: 'relative',
         padding: '.15em',
-        borderRadius: '0 4px 4px 0'
+        borderRadius: '0 4px 4px 0',
+        outline: 'none',
+        height: '35px',
+        width: '35px'
     },
     inputBox: {
         padding: '.5em .25em',
         borderRadius: '4px 0px 0px 4px',
-        width: '350px'
+        height: '35px',
+        width: '350px',
+        paddingLeft: '.5em'
     }
 }

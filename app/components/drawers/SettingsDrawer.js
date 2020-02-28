@@ -12,7 +12,7 @@ const SettingsDrawer = ({isOpen, onHide, isNotifications, onSwitchChange}) =>(
         <div style={styles.container}>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <h2 style={styles.header}>Settings</h2>
-                <button style={{backgroundColor: 'transparent', padding: '0 !important', color: 'lightgray'}} onClick={onHide}>Close</button>
+                <button style={{backgroundColor: 'transparent', padding: '0 !important', color: 'lightgray', outline: 'none'}} onClick={onHide}>Close</button>
             </div>
             
             <div style={styles.navItem}>

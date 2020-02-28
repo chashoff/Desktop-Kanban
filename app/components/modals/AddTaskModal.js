@@ -13,7 +13,7 @@ const addTaskModal = ({open,close,addCard, onChange, colorPicker}) =>(
             <button style={styles.modalExit} onClick={close}>close</button>
         </div>
         <form onSubmit={addCard} style={styles.addTaskForm}>
-            <TextField style={styles.input} onChange={onChange} required name="taskName" placeholder="Task Name" variant="outlined" inputProps={{ maxLength: 20}} />
+            <TextField style={styles.input} onChange={onChange} required name="taskName" placeholder="Task Name" variant="outlined" inputProps={{ maxLength: 30}} />
             <TextField style={styles.input} onChange={onChange} required name="taskDescription" placeholder="Description" multiline rowsMax="6" variant="outlined" />
             <div style={styles.secondaryContent}>
                 <div style={{}}>

@@ -3,6 +3,7 @@ import Card from '../kanban/Card'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { IoIosAdd } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { Tooltip } from '@material-ui/core';
 
 const Category = (props) =>(
     <Draggable draggableId={props.category.id} index={props.index}>
@@ -11,8 +12,12 @@ const Category = (props) =>(
                 <div {...provided.dragHandleProps} style={styles.headerContainer}>
                     <h3 style={styles.categoryHeader}>{props.category.title}</h3>
                     <div style={styles.buttonGroup}>
-                        <button onClick={()=> props.addCardModalToggle(props.category.id)} style={styles.btn}><IoIosAdd style={styles.icon} /></button>
-                        <button onClick={()=>props.removeCategory(props.category.id)} style={styles.btn}><MdDelete style={styles.icon} /></button>
+                        <Tooltip title="Add Task" placement="top">
+                            <button onClick={()=> props.addCardModalToggle(props.category.id)} style={styles.btn}><IoIosAdd style={styles.icon} /></button>
+                        </Tooltip>
+                        <Tooltip title="Delete Category" placement="top">
+                            <button onClick={()=>props.removeCategory(props.category.id)} style={styles.btn}><MdDelete style={styles.icon} /></button>
+                        </Tooltip>
                     </div>
                 </div>
                 <Droppable droppableId={props.category.id} type="card">
@@ -46,7 +51,8 @@ const styles = {
     },
     categoryHeader: {
         color: 'black',
-        margin: 'auto 0'
+        margin: 'auto 0',
+        paddingLeft: '.5em'
     },
     btn: {
         backgroundColor: 'transparent',
