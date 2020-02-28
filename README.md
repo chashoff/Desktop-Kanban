@@ -8,7 +8,7 @@ Multiple times I have used other task management systems, and I always run into 
 ## Screenshots
 ![TimeGuru UI Drag N Drop](app/TimeGuru_App-1.png)
 
-## Installation
+## Install development environment
 Clone the master branch from the Repo for the most updated version of TimeGuru.
 ```bash
 git clone https://github.com/chasehoff/Desktop-Kanban.git
